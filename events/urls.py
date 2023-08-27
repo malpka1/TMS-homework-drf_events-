@@ -16,11 +16,15 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib import admin
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from events1.views import UserCreate, UserList, EventList, EventSubscribe, EventMyList, CreateEventView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/users/', UserCreate.as_view(), name='user_create'),
     path('api/users/all/', UserList.as_view(), name='user_list'),
     path('api/events/', EventList.as_view(), name='event_list'),
@@ -28,6 +32,5 @@ urlpatterns = [
     path('api/events/my/', EventMyList.as_view(), name='event_my_list'),
     path('events/create/', CreateEventView.as_view(), name="event-create"),
 ]
-
 
 

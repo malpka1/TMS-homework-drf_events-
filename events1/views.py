@@ -1,5 +1,8 @@
-from rest_framework import generics
+
+from rest_framework import generics, viewsets
 from django.contrib.auth.models import User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Event
 from .serializers import UserSerializer
 from django.utils import timezone
@@ -42,4 +45,10 @@ class CreateEventView(generics.CreateAPIView):
         return self.create(request, *args, **kwargs)
 
 
+class ObtainTokenPairWithColorView(TokenObtainPairView):
+    serializer_class = TokenObtainPairSerializer
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
